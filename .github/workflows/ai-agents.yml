@@ -1,0 +1,29 @@
+name: Multi-Agent Milestone Executor
+
+on:
+  milestone:
+    types: [created]
+
+jobs:
+  execute-agents:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Dependencies
+        run: |
+          pip install crewai crewai_tools python-dotenv PyGithub
+
+      - name: Run AI Agents
+        env:
+          CEREBRAS_API_KEY: ${{ secrets.CEREBRAS_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MILESTONE_TITLE: ${{ github.event.milestone.title }}
+          MILESTONE_DESC: ${{ github.event.milestone.description }}
+        run: python main.py
