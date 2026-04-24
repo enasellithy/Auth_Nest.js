@@ -29,4 +29,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MILESTONE_TITLE: ${{ github.event.milestone.title }}
           MILESTONE_DESCRIPTION: ${{ github.event.milestone.description }}
-        run: python main.py
+        run: python scripts/main.py
